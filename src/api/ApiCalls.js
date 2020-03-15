@@ -7,9 +7,10 @@ const apiRequest = (props) => {
         'Content-Type':'application/json'
     })
     if(localStorage.getItem(TOKEN)){
-        headers.append(AUTH, BEARER +localStorage.getItem(TOKEN))
+        headers.append(AUTH, BEARER + localStorage.getItem(TOKEN))
     }
     const temps = {headers:headers}
+
     props = Object.assign({}, temps, props)
 
     return fetch(props.url, props)
@@ -36,23 +37,39 @@ export function isEmailExisting(email){
 }
 
 export function register(registerRequest){
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var raw = JSON.stringify(registerRequest);
 
-    let requestOptions = {
+    return apiRequest({
+        url: API_BASE_URL + "/auth/register",
         method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
+        body: JSON.stringify(registerRequest)
+    });
+//     let myHeaders = new Headers();
+//     myHeaders.append("Content-Type", "application/json");
+//     let raw = JSON.stringify(registerRequest);
+
+//     let requestOptions = {
+//         method: 'POST',
+//         headers: myHeaders,
+//         body: raw,
+//         redirect: 'follow'
+//     };
     
-    fetch(API_BASE_URL+"/auth/register", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+//    return fetch(API_BASE_URL+"/auth/register", requestOptions)
+//     .then(response => response.text())
+//     .then(result => console.log(result))
+//     .catch(error => console.log('error', error));
+
+
+
 }
 
+export function loginProfile(loginRequest) {
+    return apiRequest({
+        url: API_BASE_URL + "/auth/login",
+        method: 'POST',
+        body: JSON.stringify(loginRequest)
+    });
+}
 export function getLoggedUserProfile(){
     if(!localStorage.getItem(TOKEN)){
         return Promise.reject("You are not priviliged to access this resource");

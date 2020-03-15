@@ -13,6 +13,7 @@ export default class UserRegister extends React.Component{
             username:'',
             email:'',
             password:'' ,
+            requestResult:'',
         }
     }
     onChangeField  =  (event) =>{
@@ -21,12 +22,10 @@ export default class UserRegister extends React.Component{
                 [name]:value
             }
         )
-        console.log(event)
     }
 
     onSubmitHandler = (e) =>{
         e.preventDefault()
-        console.log(this.state)
         const registerRequest ={
             nameAndSurname: this.state.nameAndSurname,
             username: this.state.username,
@@ -34,41 +33,55 @@ export default class UserRegister extends React.Component{
             password: this.state.password
         }
         register(registerRequest)
+        .then(response => this.setState({
+            registerRequest: response
+        }))
+        .catch(error => this.setState({
+          requestResult: error.errors[0].defaultMessage 
+        }))
     }
         render() {
             const {nameAndSurname, username, email, password}= this.state
             return(
-                <form onSubmit={this.onSubmitHandler}>
-                    <input 
-                    onChange={this.onChangeField} 
-                    name="nameAndSurname" 
-                    value={nameAndSurname} 
-                    placeholder="name and last name"
-                    />
-                    <br/>
-                    <input 
-                    onChange={this.onChangeField} 
-                    name="username" 
-                    value={username} 
-                    placeholder="username" />
-                     <br/>
-                    <input 
-                    onChange={this.onChangeField} 
-                    name="email"
-                    value={email} 
-                    placeholder="email" 
-                    />
-                    <br/>
-                    <input
-                     onChange={this.onChangeField} 
-                     name ="password" 
-                     value={password} 
-                     placeholder="password" 
-                     type="password"
-                     />
-                     <br/>
-                     <button label="Submit" type="submit" > Submit</button>
-                </form>
+                <div className="col">
+                    <div className="row text-center ">
+                        <form onSubmit={this.onSubmitHandler}>
+                            <h1>Register</h1>
+                            <input 
+                            onChange={this.onChangeField} 
+                            name="nameAndSurname" 
+                            value={nameAndSurname} 
+                            placeholder="name and last name"
+                            />
+                            <br/>
+                            <input 
+                            onChange={this.onChangeField} 
+                            name="username" 
+                            value={username} 
+                            placeholder="username" />
+                            <br/>
+                            <input 
+                            onChange={this.onChangeField} 
+                            name="email"
+                            value={email} 
+                            placeholder="email" 
+                            />
+                            <br/>
+                            <input
+                            onChange={this.onChangeField} 
+                            name ="password" 
+                            value={password} 
+                            placeholder="password" 
+                            type="password"
+                            />
+                            <br/>
+                            <button label="Submit" type="submit" > Submit</button>
+                            <h5>If you have already account - <Link to="/login"> Login</Link></h5>
+                            <h6>{this.state.requestResult}</h6>
+                        </form>
+                    </div>
+                </div>
          );        
+           
      }
 }
