@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 import UserRegister from "../authentication/UserRegister"
 import UserLogin from "../authentication/UserLogin";
+import Navbar from "../components/Navbar"
 import App from "../App"
 
 const AppRouter = () => (
     <BrowserRouter>
+    <Navbar/>
     <Switch>
         <Route path="/" component={App} exact/>
         <Route path="/register" component={UserRegister}/>

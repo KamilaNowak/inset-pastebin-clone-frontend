@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
 import {loginProfile}  from '../api/ApiCalls';
 import { TOKEN } from "../constants/ConstantVariables";
+import { Button, TextField } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+
 export default class UserLogin extends React.Component{
 
     constructor(){
@@ -35,32 +38,36 @@ export default class UserLogin extends React.Component{
     render(){
         const {username, password} = this.state
         return (
-            <div className="col">
-                <div className="row text-center">
-                    <form onSubmit ={this.onSubmitHandler}>
-                        <h1>Log in</h1>
-                        <input
-                        onChange={this.onChangeHandler}
-                        name="username"
-                        value={username}
-                        placeholder="username"
+            <React.Fragment>
+                    <Grid container justify = "center" className="user-form">
+                        <form onSubmit ={this.onSubmitHandler} className="user-form-fields">
+                            <h1 className="text-title">Log in</h1>
+                            <TextField id="input-passwd" label="password" variant="outlined"
+                                onChange={this.onChangeHandler}
+                                name="username"
+                                value={username}
+                                placeholder="username"
+                            />
+                            <br/>
+                        <TextField id="input-passwd" label="password" variant="outlined"
+                                onChange={this.onChangeHandler}
+                                name="password"
+                                value={password}
+                                placeholder="password"
+                                type="password"
                         />
-                        <br/>
-                        <input
-                        onChange={this.onChangeHandler}
-                        name="password"
-                        value={password}
-                        placeholder="password"
-                        type="password"
-                        />
-                        <br/>
-                        <button type="submit">Submit </button>
-                        <br/>
-                        <h5> If you do not have account - <Link to="/register">Register</Link></h5>
-                        <h4>{this.state.requestResult}</h4>
-                    </form> 
-                </div>
-          </div>
+                            <br/>
+                        <Button variant="contained" color="primary" type="submit">
+                            Submit
+                        </Button>
+                            <h5 className="text-info">
+                                If you do not have account - <Button>
+                                        <Link to="/register">Register</Link>
+                                </Button></h5>
+                            <h4>{this.state.requestResult}</h4>
+                        </form> 
+                    </Grid>
+         </React.Fragment>
         );
     }
 }

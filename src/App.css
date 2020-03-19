@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.text-title{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 45px;
+  text-transform: capitalize;
+}
+.text-info{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 25px;
+}
+.user-form{
+  text-align: center;
+  padding: 1em;
+}
+.user-form-fields{
+  margin: 1;
+  margin-bottom: 1em;
+  margin: 0 10px;
+}
