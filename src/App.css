@@ -55,3 +55,17 @@
   margin-bottom: 1em;
   margin: 0 10px;
 }
+.app-mylogo{
+  color:white;
+  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Julius Sans One', sans-serif;
+  font-family: 'Montserrat Subrayada', sans-serif;
+}
+.check-button{
+  color: green;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;      
+}

@@ -5,6 +5,9 @@ import {Input, Container, Header} from "semantic-ui-react"
 import {register}  from '../api/ApiCalls';
 import { Button, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+
 export default class UserRegister extends React.Component{
     
     constructor(){
@@ -16,6 +19,8 @@ export default class UserRegister extends React.Component{
             password:'' ,
             requestResult:'',
         }
+        this.onSubmitHandler = this.onSubmitHandler.bind(this)
+        this.onChangeField = this.onChangeField.bind(this)
     }
     onChangeField  =  (event) =>{
         const {name, value}= event.target;
@@ -26,50 +31,52 @@ export default class UserRegister extends React.Component{
     }
 
     onSubmitHandler = (e) =>{
+
         e.preventDefault()
         const registerRequest ={
             nameAndSurname: this.state.nameAndSurname,
             username: this.state.username,
             email:this.state.email,
-            password: this.state.password
+            password: this.state.password,
         }
         register(registerRequest)
+        .catch(error => this.setState({
+            requestResult: error.message
+        })) 
         .then(response => this.setState({
             registerRequest: response
         }))
-        .catch(error => this.setState({
-          requestResult: error.errors[0].defaultMessage 
-        }))
+        
     }
         render() {
             const {nameAndSurname, username, email, password}= this.state
             return(
                 <React.Fragment>
-                    <Grid  container justify = "center" className="user-form">
-                    <form  onSubmit={this.onSubmitHandler}>
+                    <Grid  container justify = "center" className="user-form"  > 
+                    <form onSubmit={this.onSubmitHandler}>
                             <h1 className="text-title">Register</h1>
-                            <TextField id="input-email" label="name and surname" variant="outlined"
+                            <TextField  fullWidth id="input-nameAndSurname" label="name and surname" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name="nameAndSurname" 
                                 value={nameAndSurname} 
                                 placeholder="name and last name"
                                 />
                             <br/>
-                            <TextField id="input-email" label="username" variant="outlined"
+                            <TextField  fullWidth id="input-username" label="username" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name="username" 
                                 value={username} 
                                 placeholder="username"
                                 />
                             <br/>
-                            <TextField id="input-email" label="email" variant="outlined"
+                            <TextField  fullWidth id="input-email" label="email" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name="email"
                                 value={email} 
                                 placeholder="email" 
                                 />
                               <br/>
-                            <TextField id="input-email" label="password" variant="outlined"
+                            <TextField  fullWidth id="input-password" label="password" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name ="password" 
                                 value={password} 
@@ -77,17 +84,22 @@ export default class UserRegister extends React.Component{
                                 type="password"
                             />
                             <br/>
-                            <Button variant="contained" color="primary" type="submit">
-                            Submit
+                            <Button fullWidth variant="contained" color="primary" type="submit" style={{ background: '#808080' }}>
+                                 Submit
                             </Button>
-                            <h5 className="text-info">If you have already account - <Button>
+                            <h6 className="text-info">If you have already account - <Button>
                                 <Link to="/login"> 
                                     Login
-                                </Link></Button></h5>
-                            <h6>{this.state.requestResult}</h6>
+                                </Link></Button></h6>
+
+                                {this.state.requestResult != "" 
+                               ?   <Alert  severity="error">{this.state.requestResult}</Alert> 
+                               : null}
+                            
                         </form>
                     </Grid>
                 </React.Fragment>
-         );              
+         );       
+                
      }
 }
