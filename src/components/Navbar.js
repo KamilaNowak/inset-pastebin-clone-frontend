@@ -7,7 +7,7 @@ import {  makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import HowToRegOutlinedIcon from '@material-ui/icons/HowToRegOutlined';
-import {onLogout} from "../authentication/Auth"
+import Auth from "../authentication/Auth"
 import { TOKEN } from "../constants/ConstantVariables";
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 
 function onLogoutHandler() {
-    console.log("Before "+ localStorage.getItem(TOKEN))
-    onLogout()
-    console.log("AFTER "+ localStorage.getItem(TOKEN))
+    
   }
 
 export function Navbar(){
@@ -56,18 +54,15 @@ export function Navbar(){
                                 <span className={classes.buttonStyle}>My pastes</span>
                                 </Link>
                         </Button>
-                        <Button>
-                                 <Link to="/" >
-                                    <span className={classes.buttonStyle}>Account</span>
-                                </Link>
-                        </Button>
-                        <Button 
-                            onClick={onLogoutHandler}
-                            variant="contained" 
-                            color="default" 
-                            className="{classes.logoutButton}" 
-                            startIcon={<HowToRegOutlinedIcon/>}>
-                                Logout
+                
+                        <Button
+                                 variant="contained" 
+                                 startIcon={<HowToRegOutlinedIcon/>}
+                                 color="default" >
+                            <Link to="/account">
+                                <span className="{classes.logoutButton">Account</span>
+                            </Link>
+
                         </Button>
                 </Toolbar>
         </AppBar>

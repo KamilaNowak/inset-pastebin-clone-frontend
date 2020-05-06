@@ -59,28 +59,24 @@ export default class UserRegister extends React.Component{
                                 onChange={this.onChangeField} 
                                 name="nameAndSurname" 
                                 value={nameAndSurname} 
-                                placeholder="name and last name"
                                 />
                             <br/>
                             <TextField  fullWidth id="input-username" label="username" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name="username" 
                                 value={username} 
-                                placeholder="username"
                                 />
                             <br/>
                             <TextField  fullWidth id="input-email" label="email" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name="email"
-                                value={email} 
-                                placeholder="email" 
+                                value={email}
                                 />
                               <br/>
                             <TextField  fullWidth id="input-password" label="password" variant="outlined"
                                 onChange={this.onChangeField} 
                                 name ="password" 
-                                value={password} 
-                                placeholder="password" 
+                                value={password}  
                                 type="password"
                             />
                             <br/>

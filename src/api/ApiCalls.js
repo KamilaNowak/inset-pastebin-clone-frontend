@@ -2,7 +2,7 @@ import {API_BASE_URL, TOKEN} from '../constants/ConstantVariables';
 const AUTH = 'Authorization'
 const BEARER = 'Bearer '
 
-const apiRequest = (props) => {
+ const apiRequest = (props) => {
     const headers = new Headers({
         'Content-Type':'application/json'
     })
@@ -70,14 +70,14 @@ export function loginProfile(loginRequest) {
         body: JSON.stringify(loginRequest)
     });
 }
-export function getLoggedUserProfile(){
+export  function getLoggedUserProfile (){
+
     if(!localStorage.getItem(TOKEN)){
         return Promise.reject("You are not priviliged to access this resource");
     }
-    else{
-        return apiRequest({
+   
+        return  apiRequest({
             url: API_BASE_URL + "/me",
             method: 'GET'
         })
-    }
 }

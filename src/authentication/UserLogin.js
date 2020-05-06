@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Alert from '@material-ui/lab/Alert';
 
+import {  makeStyles } from '@material-ui/core/styles';
+
 
 export default class UserLogin extends React.Component{
 
@@ -18,13 +20,12 @@ export default class UserLogin extends React.Component{
             username:'',
             password:'',
             requestResult:'',
+            canRedirect:false
         }
         this.onSubmitHandler=this.onSubmitHandler.bind(this)
         this.onChangeHandler=this.onChangeHandler.bind(this)
     }
     onChangeHandler =(event) =>{
-        console.log("W onChange : "+ localStorage.getItem(TOKEN))
-        console.log(event.target.value)
         const {name, value} = event.target
         this.setState({
             [name] : value
@@ -42,19 +43,23 @@ export default class UserLogin extends React.Component{
     .catch(error => this.setState({
         requestResult: error.message
     }))  
-    console.log("W loginie : "+ localStorage.getItem(TOKEN))
+
     if(localStorage.getItem(TOKEN)!=''){
-        return <Redirect to="/home"/>
+       this.setState({
+           canRedirect:true
+       })
     }
 }
-
     render(){
         const {username, password} = this.state
+        if(this.state.canRedirect===true){
+            return <Redirect to="/home"/>
+        }
         return (
             <MuiThemeProvider>
             <React.Fragment>
                     <Grid container justify = "center" className="user-form">
-                        <form onSubmit ={this.onSubmitHandler} className="user-form-fields">
+                        <form onSubmit ={this.onSubmitHandler} className="user-form-fields" className="">
                             <h1 className="text-title">Log in</h1>
                             <TextField  fullWidth id="input-passwd" label="username" variant="outlined"
                                 onChange={this.onChangeHandler}
